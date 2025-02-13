@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+ 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+ 
+model Entity {
+  uuid         String  @id @default(uuid())
+  fragmentType String
+  parentUuid   String?
+  parentType   String?
+  lastUpdated  DateTime
+ 
+  alternativeDates AlternativeDate[]
+  genres          Genre[]
+  images          Image[]
+  localizableInfo LocalizableInformation[]
+  tags            Tag[]
+  targetAudience  TargetAudience[]
+}
+ 
+model AlternativeDate {
+  id         Int    @id @default(autoincrement())
+  entityUuid String @unique
+  type       String
+  value      String
+  entity     Entity @relation(fields: [entityUuid], references: [uuid])
+}
+ 
+model Genre {
+  id         Int    @id @default(autoincrement())
+  entityUuid String
+  type       String
+  value      String
+  entity     Entity @relation(fields: [entityUuid], references: [uuid])
+}
+ 
+model Image {
+  id         Int    @id @default(autoincrement())
+  entityUuid String
+  checksum   String
+  locale     String
+  name       String
+  size       Int
+  usage      String
+  url        String
+  isEditorial Boolean
+  entity     Entity @relation(fields: [entityUuid], references: [uuid])
+}
+ 
+model LocalizableInformation {
+  id         Int    @id @default(autoincrement())
+  entityUuid String
+  locale     String
+  seasonNumber String?
+  episodeNumber String?
+  title      String
+  entity     Entity @relation(fields: [entityUuid], references: [uuid])
+  alternativeTitles AlternativeTitle[]
+  synopses         Synopsis[]
+}
+ 
+model AlternativeTitle {
+  id       Int    @id @default(autoincrement())
+  infoId   Int
+  type     String
+  value    String
+  info     LocalizableInformation @relation(fields: [infoId], references: [id])
+}
+ 
+model Synopsis {
+  id       Int    @id @default(autoincrement())
+  infoId   Int
+  type     String
+  value    String
+  info     LocalizableInformation @relation(fields: [infoId], references: [id])
+}
+ 
+model Tag {
+  id         Int    @id @default(autoincrement())
+  entityUuid String
+  type       String
+  value      String
+  entity     Entity @relation(fields: [entityUuid], references: [uuid])
+}
+ 
+model TargetAudience {
+  id         Int    @id @default(autoincrement())
+  entityUuid String
+  type       String
+  value      String
+  entity     Entity @relation(fields: [entityUuid], references: [uuid])
+}
