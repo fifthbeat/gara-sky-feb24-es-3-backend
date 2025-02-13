@@ -1,12 +1,12 @@
 import { db } from "@/utils/prisma";
-import { selectInfo } from "@/schema/utilsQuery";
+import { selectInfoProgrammes } from "@/schema/utilsQuery";
 
 export async function getProgrammesServices() {
   const data = await db.entity.findMany({
     where: {
       fragmentType: "PROGRAMME",
     },
-    select: selectInfo,
+    select: selectInfoProgrammes,
   });
   return data;
 }
@@ -17,7 +17,7 @@ export async function getProgrammesDetailServies(id: string) {
       fragmentType: "PROGRAMME",
       uuid: id,
     },
-    select: selectInfo,
+    select: selectInfoProgrammes,
   });
 
   return data;
@@ -29,7 +29,7 @@ export async function getProgrammesBySeasonServies(idSeasion: string) {
       fragmentType: "PROGRAMME",
       parentUuid: idSeasion,
     },
-    select: selectInfo,
+    select: selectInfoProgrammes,
   });
 
   return data;

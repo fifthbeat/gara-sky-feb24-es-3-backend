@@ -61,6 +61,7 @@ export type BaseEntity = {
   targetAudience: TargetAudience[];
   parentType?: string;
   parentUuid?: string;
+  durationSeconds?: string;
 };
 
 type Season = BaseEntity & {

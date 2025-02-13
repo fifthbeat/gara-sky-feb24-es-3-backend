@@ -17,7 +17,7 @@ model Entity {
   parentUuid   String?
   parentType   String?
   lastUpdated  DateTime
- 
+  durationSeconds String?
   alternativeDates AlternativeDate[]
   genres          Genre[]
   images          Image[]

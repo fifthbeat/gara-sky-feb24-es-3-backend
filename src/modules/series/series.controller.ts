@@ -5,13 +5,18 @@ import {
 } from "@/modules/series/series.service";
 import { GetSeries } from "./types";
 import { getSeasonsBySeriesServies } from "@/modules/seasons/seasons.service";
+import { normaliseSeries, normaliseSeasons } from "@/utils/normalize";
 
 export async function getSeriesController(
   req: FastifyRequest,
   reply: FastifyReply
 ) {
   const data = await getSeriesServices();
-  return { data };
+  if (data.length > 0) {
+    const normalize = data.map((item) => normaliseSeries(item));
+    return { data: normalize };
+  }
+  return data;
 }
 
 export async function getSeriesDetailController(
@@ -23,7 +28,11 @@ export async function getSeriesDetailController(
   const { idSeries } = req.params;
 
   const data = await getDetailedSeries(idSeries);
-  return { data };
+  if (data) {
+    const normalize = normaliseSeries(data);
+    return { data: normalize };
+  }
+  return null;
 }
 
 export async function getSeasonsBySeriesController(
@@ -34,5 +43,9 @@ export async function getSeasonsBySeriesController(
 ) {
   const { idSeries } = req.params;
   const data = await getSeasonsBySeriesServies(idSeries);
-  return { data };
+  if (data.length > 0) {
+    const normalize = data.map((item) => normaliseSeasons(item));
+    return { data: normalize };
+  }
+  return data;
 }

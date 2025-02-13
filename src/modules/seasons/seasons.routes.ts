@@ -12,15 +12,19 @@ import {
 } from "@/modules/seasons/seasons.schema";
 
 export default async function seasonsRoutes(fastify: FastifyInstance) {
-  fastify.get(`${routePrefix.seasons}`, getSeasonsSchema, getSeasonsController);
+  fastify.get(
+    `${routePrefix.seasons}`,
+    // getSeasonsSchema,
+    getSeasonsController
+  );
   fastify.get(
     `${routePrefix.seasons}/:idSeason`,
-    getSeasonDetailSchema,
+    // getSeasonDetailSchema,
     getSeasonsDetailController
   );
   fastify.get(
     `${routePrefix.seasons}/:idSeason${routePrefix.programmes}`,
-    getProgrammesBySeasonSchema,
+    // getProgrammesBySeasonSchema,
     getProgrammesBySeasonsController
   );
 }

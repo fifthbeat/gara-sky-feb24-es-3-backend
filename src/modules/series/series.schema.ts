@@ -1,4 +1,7 @@
-import { baseEntityResponseSchema } from "@/schema/utilsSwagger";
+import {
+  ResponseSchemaSeries,
+  ResponseSchemaSeriesDetail,
+} from "@/schema/utilsSwagger";
 
 export const getSeriesSchema = {
   schema: {
@@ -10,7 +13,7 @@ export const getSeriesSchema = {
         properties: {
           data: {
             type: "array",
-            items: baseEntityResponseSchema,
+            items: ResponseSchemaSeries,
           },
         },
       },
@@ -33,34 +36,34 @@ export const getSeriesDetailSchema = {
       200: {
         type: "object",
         properties: {
-          data: baseEntityResponseSchema,
+          data: ResponseSchemaSeriesDetail,
         },
       },
     },
   },
 };
 
-export const getSeasonsBySeriesSchema = {
-  schema: {
-    tags: ["Series"],
-    summary: "Get seasons by series ID (USED)",
-    params: {
-      type: "object",
-      properties: {
-        idSeries: { type: "string" },
-      },
-      required: ["idSeries"],
-    },
-    response: {
-      200: {
-        type: "object",
-        properties: {
-          data: {
-            type: "array",
-            items: baseEntityResponseSchema,
-          },
-        },
-      },
-    },
-  },
-};
+// export const getSeasonsBySeriesSchema = {
+//   schema: {
+//     tags: ["Series"],
+//     summary: "Get seasons by series ID (USED)",
+//     params: {
+//       type: "object",
+//       properties: {
+//         idSeries: { type: "string" },
+//       },
+//       required: ["idSeries"],
+//     },
+//     response: {
+//       200: {
+//         type: "object",
+//         properties: {
+//           data: {
+//             type: "array",
+//             items: baseEntityResponseSchema,
+//           },
+//         },
+//       },
+//     },
+//   },
+// };

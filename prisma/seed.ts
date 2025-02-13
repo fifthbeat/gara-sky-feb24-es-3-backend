@@ -11,6 +11,7 @@ async function main() {
         fragmentType: entity.fragmentType,
         parentUuid: entity.parentUuid || null,
         parentType: entity.parentType || null,
+        durationSeconds: entity.durationSeconds || null,
         lastUpdated: new Date(entity.lastUpdated),
       },
     });
