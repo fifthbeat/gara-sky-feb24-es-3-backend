@@ -12,12 +12,12 @@ import {
 export default async function programmesRoutes(fastify: FastifyInstance) {
   fastify.get(
     `${routePrefix.programmes}`,
-    // getProgrammesSchema,
+    getProgrammesSchema,
     getProgrammesController
   );
   fastify.get(
     `${routePrefix.programmes}/:idProgrammes`,
-    // getProgrammeDetailSchema,
+    getProgrammeDetailSchema,
     getProgrammesDetailController
   );
 }

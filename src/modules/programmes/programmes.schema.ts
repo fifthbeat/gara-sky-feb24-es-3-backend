@@ -1,26 +1,23 @@
-import { baseEntityResponseSchema } from "@/schema/utilsSwagger";
+import { resDefault500, tagsApis } from "@/schema/utilsSwagger";
+import {
+  resProgrammesDetailSchema,
+  resProgrammesSchema,
+} from "./programmes.swagger";
 
 export const getProgrammesSchema = {
   schema: {
-    tags: ["Programmes"],
+    tags: [tagsApis.PROGRAMME],
     summary: "Get all programmes",
     response: {
-      200: {
-        type: "object",
-        properties: {
-          data: {
-            type: "array",
-            items: baseEntityResponseSchema,
-          },
-        },
-      },
+      200: resProgrammesSchema,
+      500: resDefault500,
     },
   },
 };
 
 export const getProgrammeDetailSchema = {
   schema: {
-    tags: ["Programmes"],
+    tags: [tagsApis.PROGRAMME],
     summary: "Get programme details by ID (USED)",
     params: {
       type: "object",
@@ -30,12 +27,8 @@ export const getProgrammeDetailSchema = {
       required: ["idProgrammes"],
     },
     response: {
-      200: {
-        type: "object",
-        properties: {
-          data: baseEntityResponseSchema,
-        },
-      },
+      200: resProgrammesDetailSchema,
+      500: resDefault500,
     },
   },
 };

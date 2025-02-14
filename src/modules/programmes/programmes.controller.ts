@@ -26,9 +26,10 @@ export async function getProgrammesDetailController(
   const { idProgrammes } = req.params as ParamProgrammes;
 
   const data = await getProgrammesDetailServies(idProgrammes);
+
   if (data) {
     const normalize = normaliseProgrammes(data);
-    return { normalize };
+    return { data: normalize };
   }
   return null;
 }

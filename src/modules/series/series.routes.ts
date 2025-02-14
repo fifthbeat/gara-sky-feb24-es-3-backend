@@ -8,7 +8,7 @@ import { routePrefix } from "@/configs/routes";
 import {
   getSeriesSchema,
   getSeriesDetailSchema,
-  // getSeasonsBySeriesSchema,
+  getSeasonsBySeriesSchema,
 } from "@/modules/series/series.schema";
 
 export default async function seriesRoutes(fastify: FastifyInstance) {
@@ -20,7 +20,7 @@ export default async function seriesRoutes(fastify: FastifyInstance) {
   );
   fastify.get(
     `${routePrefix.series}/:idSeries${routePrefix.seasons}`,
-    // getSeasonsBySeriesSchema,
+    getSeasonsBySeriesSchema,
     getSeasonsBySeriesController
   );
 }

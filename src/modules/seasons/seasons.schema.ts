@@ -1,26 +1,21 @@
-import { baseEntityResponseSchema } from "@/schema/utilsSwagger";
+import { resDefault500, tagsApis } from "@/schema/utilsSwagger";
+import { resSeasonsDetailSchema, resSeasonsSchema } from "./seasons.swagger";
+import { resProgrammesSchema } from "@/modules/programmes/programmes.swagger";
 
 export const getSeasonsSchema = {
   schema: {
-    tags: ["Seasons"],
+    tags: [tagsApis.SEASON],
     summary: "Get all seasons",
     response: {
-      200: {
-        type: "object",
-        properties: {
-          data: {
-            type: "array",
-            items: baseEntityResponseSchema,
-          },
-        },
-      },
+      200: resSeasonsSchema,
+      500: resDefault500,
     },
   },
 };
 
 export const getSeasonDetailSchema = {
   schema: {
-    tags: ["Seasons"],
+    tags: [tagsApis.SEASON],
     summary: "Get season details by ID (USED)",
     params: {
       type: "object",
@@ -30,19 +25,15 @@ export const getSeasonDetailSchema = {
       required: ["idSeason"],
     },
     response: {
-      200: {
-        type: "object",
-        properties: {
-          data: baseEntityResponseSchema,
-        },
-      },
+      200: resSeasonsDetailSchema,
+      500: resDefault500,
     },
   },
 };
 
 export const getProgrammesBySeasonSchema = {
   schema: {
-    tags: ["Seasons"],
+    tags: [tagsApis.SEASON],
     summary: "Get programmes by season ID (USED)",
     params: {
       type: "object",
@@ -52,12 +43,21 @@ export const getProgrammesBySeasonSchema = {
       required: ["idSeason"],
     },
     response: {
-      200: {
+      200: resProgrammesSchema,
+      500: {
         type: "object",
         properties: {
-          data: {
-            type: "array",
-            items: baseEntityResponseSchema,
+          statusCode: {
+            type: "integer",
+            example: 500,
+          },
+          error: {
+            type: "string",
+            example: "Internal Server Error",
+          },
+          message: {
+            type: "string",
+            example: "An unexpected error occurred.",
           },
         },
       },

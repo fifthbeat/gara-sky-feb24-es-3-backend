@@ -1,60 +1,45 @@
-const itemSerie = {
+export const tagsApis = {
+  SERIES: "Series",
+  SEASON: "Seasons",
+  PROGRAMME: "Programmes",
+};
+
+export const itemBase = {
   type: "object",
-  required: [
-    "fragmentType",
-    "uuid",
-    "images",
-    "title",
-    "subtitle",
-    "tags",
-    "genre",
-  ],
   properties: {
     fragmentType: {
       type: "string",
-      enum: ["SERIES"],
+      enum: ["SERIES", "SEASON", "PROGRAMME"],
     },
     uuid: {
       type: "string",
       format: "uuid",
-      example: "8980dd13-ee24-42b3-b4b8-0b9fc59ab821",
     },
     images: {
       type: "array",
       items: {
         type: "object",
-        required: ["usage", "url"],
         properties: {
-          usage: {
-            type: "string",
-            enum: ["Background", "Scene", "BOXART", "Cover"],
-          },
-          url: {
-            type: "string",
-            format: "uri",
-            example:
-              "http://it.imageservice.sky.com/uuid/8980dd13-ee24-42b3-b4b8-0b9fc59ab821/background",
-          },
+          usage: { type: "string" },
+          url: { type: "string", format: "uri" },
         },
       },
     },
-    title: {
-      type: "string",
-      example: "Serie A Basket",
-    },
-    subtitle: {
+    localizableInfo: {
       type: "array",
       items: {
         type: "object",
-        required: ["type", "value"],
         properties: {
-          type: {
-            type: "string",
-            enum: ["aka", "brief", "long", "short"],
-          },
-          value: {
-            type: "string",
-            example: "Serie A Basket",
+          title: { type: "string" },
+          alternativeTitles: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                type: { type: "string" },
+                value: { type: "string" },
+              },
+            },
           },
         },
       },
@@ -63,16 +48,9 @@ const itemSerie = {
       type: "array",
       items: {
         type: "object",
-        required: ["type", "value"],
         properties: {
-          type: {
-            type: "string",
-            enum: ["ee"],
-          },
-          value: {
-            type: "string",
-            example: "Sport",
-          },
+          type: { type: "string" },
+          value: { type: "string" },
         },
       },
     },
@@ -80,181 +58,44 @@ const itemSerie = {
       type: "array",
       items: {
         type: "object",
-        required: ["type", "value"],
         properties: {
-          type: {
-            type: "string",
-            enum: [
-              "epgGenres",
-              "epgSubGenres",
-              "recommendationGenres",
-              "microGenres",
-            ],
-          },
-          value: {
-            type: "string",
-            example: "sport",
-          },
+          type: { type: "string" },
+          value: { type: "string" },
         },
       },
     },
   },
 };
 
-export const ResponseSchemaSeries = {
+export const resDefault200 = {
   type: "object",
   properties: {
-    data: {
-      type: "array",
-      items: itemSerie,
-    },
+    data: {},
     status: {
       type: "integer",
-      enum: [200],
-      description: "HTTP status code",
+      example: 200,
     },
     message: {
       type: "string",
       example: "Success",
     },
   },
-  required: ["data", "status", "message"],
 };
 
-export const ResponseSchemaSeriesDetail = {
+export const resDefault500 = {
   type: "object",
   properties: {
-    data: itemSerie,
-    status: {
+    statusCode: {
       type: "integer",
-      enum: [200],
-      description: "HTTP status code",
+      example: 500,
+    },
+    error: {
+      type: "string",
+      example: "Internal Server Error",
     },
     message: {
       type: "string",
-      example: "Success",
+      example: "An unexpected error occurred.",
     },
   },
-  required: ["data", "status", "message"],
-};
-
-export const baseEntityResponseSchema = {
-  type: "object",
-  properties: {
-    data: {
-      type: "array",
-      items: {
-        type: "object",
-        required: [
-          "fragmentType",
-          "uuid",
-          "images",
-          "title",
-          "subtitle",
-          "tags",
-          "genre",
-        ],
-        properties: {
-          fragmentType: {
-            type: "string",
-            enum: ["SERIES"],
-          },
-          uuid: {
-            type: "string",
-            format: "uuid",
-            example: "8980dd13-ee24-42b3-b4b8-0b9fc59ab821",
-          },
-          images: {
-            type: "array",
-            items: {
-              type: "object",
-              required: ["usage", "url"],
-              properties: {
-                usage: {
-                  type: "string",
-                  enum: ["Background", "Scene", "BOXART", "Cover"],
-                },
-                url: {
-                  type: "string",
-                  format: "uri",
-                  example:
-                    "http://it.imageservice.sky.com/uuid/8980dd13-ee24-42b3-b4b8-0b9fc59ab821/background",
-                },
-              },
-            },
-          },
-          title: {
-            type: "string",
-            example: "Serie A Basket",
-          },
-          subtitle: {
-            type: "array",
-            items: {
-              type: "object",
-              required: ["type", "value"],
-              properties: {
-                type: {
-                  type: "string",
-                  enum: ["aka", "brief", "long", "short"],
-                },
-                value: {
-                  type: "string",
-                  example: "Serie A Basket",
-                },
-              },
-            },
-          },
-          tags: {
-            type: "array",
-            items: {
-              type: "object",
-              required: ["type", "value"],
-              properties: {
-                type: {
-                  type: "string",
-                  enum: ["ee"],
-                },
-                value: {
-                  type: "string",
-                  example: "Sport",
-                },
-              },
-            },
-          },
-          genre: {
-            type: "array",
-            items: {
-              type: "object",
-              required: ["type", "value"],
-              properties: {
-                type: {
-                  type: "string",
-                  enum: [
-                    "epgGenres",
-                    "epgSubGenres",
-                    "recommendationGenres",
-                    "microGenres",
-                  ],
-                },
-                value: {
-                  type: "string",
-                  example: "sport",
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    status: {
-      type: "integer",
-      enum: [200],
-      description: "HTTP status code",
-    },
-    message: {
-      type: "string",
-      example: "Success",
-    },
-  },
-  required: ["data", "status", "message"],
 };
