@@ -47,7 +47,7 @@ const start = async () => {
     // Register the authentication middleware globally
     // fastifyApp.addHook("preHandler", authenticate);
 
-    await fastifyApp.listen({ port: envs.PORT });
+    await fastifyApp.listen({ port: envs.PORT, host: "0.0.0.0" });
     console.log(`Server is running at http://localhost:${envs.PORT}`);
   } catch (err) {
     fastifyApp.log.error(err);
