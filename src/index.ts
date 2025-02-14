@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import FastifyEnv from "@fastify/env";
+import cors from '@fastify/cors'
 import seriesRoutes from "@/modules/series/series.routes";
 import { Envs, optionsConfig } from "@/configs/evn.schema";
 import SwaggerUI from "@fastify/swagger-ui";
@@ -33,6 +34,7 @@ SERVER
 */
 const start = async () => {
   try {
+    await fastifyApp.register(cors)
     await fastifyApp.register(FastifyEnv, optionsConfig);
 
     const envs = fastifyApp.getEnvs<Envs>();

@@ -99,7 +99,6 @@ export async function createProgrammeService(programmeData: Programme2) {
           title: info.title,
 
           alternativeTitles: {
-            // @ts-expect-error fix type model
             create: info.alternativeTitle?.map((altTitle) => ({
               type: altTitle.type,
               value: altTitle.value,
@@ -107,7 +106,6 @@ export async function createProgrammeService(programmeData: Programme2) {
           },
 
           synopses: {
-            // @ts-expect-error
             create: info.synopsis?.map((synopsis) => ({
               type: synopsis.type,
               value: synopsis.value,
