@@ -7,6 +7,12 @@ export const tagsApis = {
 export const itemBase = {
   type: "object",
   properties: {
+    title: {
+      type: "string",
+    },
+    subtitle: {
+      type: "array",
+    },
     fragmentType: {
       type: "string",
       enum: ["SERIES", "SEASON", "PROGRAMME"],

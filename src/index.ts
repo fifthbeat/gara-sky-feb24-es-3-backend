@@ -6,6 +6,7 @@ import SwaggerUI from "@fastify/swagger-ui";
 import Swagger from "@fastify/swagger";
 import seasonsRoutes from "@/modules/seasons/seasons.routes";
 import programmesRoutes from "@/modules/programmes/programmes.routes";
+// import { authenticate } from "./middleware/authenticate";
 
 const fastifyApp = Fastify({ logger: true });
 
@@ -42,9 +43,9 @@ const start = async () => {
     fastifyApp.register(seriesRoutes, { prefix: envs.API_PREFIX });
     fastifyApp.register(seasonsRoutes, { prefix: envs.API_PREFIX });
     fastifyApp.register(programmesRoutes, { prefix: envs.API_PREFIX });
-    // fastifyApp.get("/", async (request, reply) => {
-    //   return { message: "Welcome to API" };
-    // });
+
+    // Register the authentication middleware globally
+    // fastifyApp.addHook("preHandler", authenticate);
 
     await fastifyApp.listen({ port: envs.PORT });
     console.log(`Server is running at http://localhost:${envs.PORT}`);
