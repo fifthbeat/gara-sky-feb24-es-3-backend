@@ -13,6 +13,7 @@ type LocalizableInfo = {
   title: string;
   seasonNumber?: string | null;
   episodeNumber?: string | null;
+  synopses: Synopse[];
 };
 
 type Tag = {
@@ -21,6 +22,11 @@ type Tag = {
 };
 
 type Genre = {
+  type: string;
+  value: string;
+};
+
+type Synopse = {
   type: string;
   value: string;
 };
@@ -42,7 +48,7 @@ export const normaliseSeries = (data: Entity) => {
     uuid: data.uuid,
     images: data.images,
     title: data.localizableInfo[0].title,
-    subtitle: data.localizableInfo[0].alternativeTitles,
+    subtitle: data.localizableInfo[0].synopses,
     tags: data.tags || null,
     genre: data.genres,
   };
@@ -54,7 +60,7 @@ export const normaliseSeasons = (data: Entity) => {
     uuid: data.uuid,
     images: data.images,
     title: data.localizableInfo[0].title,
-    subtitle: data.localizableInfo[0].alternativeTitles,
+    subtitle: data.localizableInfo[0].synopses,
     tags: data.tags || null,
     genre: data.genres,
     seasonNumber: data.localizableInfo[0].seasonNumber,
@@ -68,7 +74,7 @@ export const normaliseProgrammes = (data: Entity) => {
     uuid: data.uuid,
     images: data.images,
     title: data.localizableInfo[0].title,
-    subtitle: data.localizableInfo[0].alternativeTitles,
+    subtitle: data.localizableInfo[0].synopses,
     tags: data.tags || null,
     genre: data.genres,
     episodeNumber: data.localizableInfo[0].episodeNumber,

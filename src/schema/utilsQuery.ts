@@ -16,6 +16,12 @@ export const selectInfo = {
         },
       },
       title: true,
+      synopses: {
+        select: {
+          type: true,
+          value: true,
+        },
+      },
     },
   },
   tags: {
@@ -44,6 +50,7 @@ export const selectInfoSeason = {
       },
       seasonNumber: true,
       title: true,
+      synopses: true,
     },
   },
   parentUuid: true,
@@ -61,6 +68,7 @@ export const selectInfoProgrammes = {
       },
       episodeNumber: true,
       title: true,
+      synopses: true,
     },
   },
   durationSeconds: true,

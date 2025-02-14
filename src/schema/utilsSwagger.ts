@@ -12,6 +12,13 @@ export const itemBase = {
     },
     subtitle: {
       type: "array",
+      items: {
+        type: "object",
+        properties: {
+          type: { type: "string" },
+          value: { type: "string" },
+        },
+      },
     },
     fragmentType: {
       type: "string",
@@ -28,25 +35,6 @@ export const itemBase = {
         properties: {
           usage: { type: "string" },
           url: { type: "string", format: "uri" },
-        },
-      },
-    },
-    localizableInfo: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          alternativeTitles: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                type: { type: "string" },
-                value: { type: "string" },
-              },
-            },
-          },
         },
       },
     },
