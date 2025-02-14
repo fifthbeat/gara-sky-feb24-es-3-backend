@@ -1,3 +1,3 @@
-export type ParamProgrammes = {
+export interface ParamProgrammes {
   idProgrammes: string;
-};
+}

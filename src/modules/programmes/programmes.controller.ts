@@ -2,9 +2,12 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import {
   getProgrammesServices,
   getProgrammesDetailServies,
+  createProgrammeService,
 } from "@/modules/programmes/programmes.service";
 import { ParamProgrammes } from "./types";
 import { normaliseProgrammes } from "@/utils/normalize";
+// TODO: fix type
+import { Programme, Programme2 } from "prisma/types";
 
 export async function getProgrammesController(
   req: FastifyRequest,
@@ -32,4 +35,16 @@ export async function getProgrammesDetailController(
     return { data: normalize };
   }
   return null;
+}
+
+export async function createProgrammeController(
+  // TODO: fix type
+  req: FastifyRequest<{ Body: Programme2 }>,
+  reply: FastifyReply
+) {
+  const programmeData = req.body;
+  console.log("programmeData", programmeData);
+  const newProgramme = await createProgrammeService(programmeData);
+
+  return { data: normaliseProgrammes(newProgramme) };
 }

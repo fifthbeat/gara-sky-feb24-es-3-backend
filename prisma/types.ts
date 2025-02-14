@@ -68,7 +68,7 @@ type Season = BaseEntity & {
   fragmentType: "SEASON";
 };
 
-type Programme = BaseEntity & {
+export type Programme = BaseEntity & {
   fragmentType: "PROGRAMME";
   durationSeconds: string;
   lastInSeason: boolean;
@@ -84,4 +84,26 @@ export type ContentUpdate = {
   lastPublishedTs: string;
   updateEntities: (Season | Programme | Series)[];
   deleteEntities: any[];
+};
+
+// TODO: fix types
+export type BaseEntity2 = {
+  fragmentType: "SEASON" | "PROGRAMME" | "SERIES";
+  uuid: string;
+  alternativeDates: AlternativeDate[];
+  genres: Genre[];
+  images: Image[];
+  lastUpdated: string;
+  localizableInfo: LocalizableInformation[];
+  tags: Tag[];
+  targetAudience: TargetAudience[];
+  parentType?: string;
+  parentUuid?: string;
+  durationSeconds?: string;
+};
+
+export type Programme2 = BaseEntity2 & {
+  fragmentType: "PROGRAMME";
+  durationSeconds: string;
+  lastInSeason: boolean;
 };

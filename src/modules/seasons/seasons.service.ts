@@ -2,7 +2,6 @@ import { db } from "@/utils/prisma";
 import { selectInfoSeason } from "@/schema/utilsQuery";
 
 export async function getSeasonsServices() {
-  console.log("selectInfoSeason", selectInfoSeason);
   const data = await db.entity.findMany({
     where: {
       fragmentType: "SEASON",
