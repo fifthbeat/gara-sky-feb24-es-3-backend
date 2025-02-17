@@ -8,6 +8,7 @@ import { routePrefix } from "@/configs/routes";
 import {
   getProgrammesSchema,
   getProgrammeDetailSchema,
+  createProgrammeSchema,
 } from "@/modules/programmes/programmes.schema";
 import { authenticate } from "@/middleware/authenticate";
 
@@ -22,16 +23,9 @@ export default async function programmesRoutes(fastify: FastifyInstance) {
     getProgrammeDetailSchema,
     getProgrammesDetailController
   );
-  fastify.post(
-    `${routePrefix.programmes}`,
-    // TODO: fix
-    {
-      // ...createProgrammeSchema,
-      preHandler: [authenticate],
-      handler: createProgrammeController,
-    }
-    // { preHandler: [authenticate] },
-    // { ...createProgrammeSchema, preHandler: [authenticate] },
-    // createProgrammeController
-  );
+  fastify.post(`${routePrefix.programmes}`, {
+    ...createProgrammeSchema,
+    preHandler: [authenticate],
+    handler: createProgrammeController,
+  });
 }

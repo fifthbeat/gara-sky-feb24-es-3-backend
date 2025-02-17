@@ -38,8 +38,6 @@ export async function getProgrammesBySeasonServies(idSeasion: string) {
 }
 
 export async function createProgrammeService(programmeData: Programme) {
-  console.log("programmeData", programmeData);
-
   const {
     fragmentType,
     parentUuid,
@@ -58,11 +56,9 @@ export async function createProgrammeService(programmeData: Programme) {
       fragmentType,
       parentUuid,
       parentType,
-      // lastUpdated: new Date(lastUpdated), // Ensure Date is correctly formatted
       lastUpdated: new Date(lastUpdated), // Ensure Date is correctly formatted
       durationSeconds,
 
-      // Nested writes for related tables
       alternativeDates: {
         create: alternativeDates?.map((date) => ({
           type: date.type,
@@ -90,7 +86,7 @@ export async function createProgrammeService(programmeData: Programme) {
       },
 
       localizableInfo: {
-        create: programmeData.localizableInfo?.map((info) => ({
+        create: localizableInfo?.map((info) => ({
           locale: info.locale,
           seasonNumber: info.seasonNumber,
           episodeNumber: info.episodeNumber,
