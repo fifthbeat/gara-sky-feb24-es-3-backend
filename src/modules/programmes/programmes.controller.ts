@@ -6,8 +6,8 @@ import {
 } from "@/modules/programmes/programmes.service";
 import { ParamProgrammes } from "./types";
 import { normaliseProgrammes } from "@/utils/normalize";
-// TODO: fix type
-import { Programme, Programme2 } from "prisma/types";
+
+import { Programme } from "prisma/types";
 
 export async function getProgrammesController(
   req: FastifyRequest,
@@ -39,7 +39,7 @@ export async function getProgrammesDetailController(
 
 export async function createProgrammeController(
   // TODO: fix type
-  req: FastifyRequest<{ Body: Programme2 }>,
+  req: FastifyRequest<{ Body: Programme }>,
   reply: FastifyReply
 ) {
   const programmeData = req.body;

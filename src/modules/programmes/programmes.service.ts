@@ -1,7 +1,7 @@
 import { db } from "@/utils/prisma";
 import { selectInfoProgrammes } from "@/schema/utilsQuery";
-// TODO: fix type
-import { Programme, Programme2 } from "prisma/types";
+
+import { Programme } from "prisma/types";
 
 export async function getProgrammesServices() {
   const data = await db.entity.findMany({
@@ -37,7 +37,7 @@ export async function getProgrammesBySeasonServies(idSeasion: string) {
   return data;
 }
 
-export async function createProgrammeService(programmeData: Programme2) {
+export async function createProgrammeService(programmeData: Programme) {
   console.log("programmeData", programmeData);
 
   const {
@@ -90,9 +90,7 @@ export async function createProgrammeService(programmeData: Programme2) {
       },
 
       localizableInfo: {
-        // TODO: fix
-        // @ts-expect-error fix type model
-        create: programmeData.localizableInformation?.map((info) => ({
+        create: programmeData.localizableInfo?.map((info) => ({
           locale: info.locale,
           seasonNumber: info.seasonNumber,
           episodeNumber: info.episodeNumber,
