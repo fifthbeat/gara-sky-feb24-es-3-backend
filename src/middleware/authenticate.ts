@@ -3,15 +3,12 @@ import { FastifyReply, FastifyRequest } from "fastify";
 export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
   const authHeader = req.headers["authorization"];
 
-  console.log("authHeader", authHeader);
-
   if (!authHeader) {
     return reply.status(401).send({ error: "Authorization header is missing" });
   }
 
   const token = authHeader.split(" ")[1]; // Get the token from the header
-  console.log("token", token);
-  // Here you would typically verify the token
+
   // For example, using a library like jsonwebtoken
   // const decoded = jwt.verify(token, process.env.JWT_SECRET);
 

@@ -28,6 +28,14 @@ export const resProgrammesSchema = {
   ...resDefault200,
   properties: {
     ...resDefault200.properties,
+    pagination: {
+      type: "object",
+      properties: {
+        currentPage: { type: "integer" },
+        totalPages: { type: "integer" },
+        totalElements: { type: "integer" },
+      },
+    },
     data: {
       type: "array",
       items: itemProgramme,

@@ -9,6 +9,13 @@ export const getProgrammesSchema = {
   schema: {
     tags: [tagsApis.PROGRAMME],
     summary: "Get all programmes",
+    querystring: {
+      type: "object",
+      properties: {
+        page: { type: "integer", default: 1 },
+        limit: { type: "integer", default: 10 },
+      },
+    },
     response: {
       200: resProgrammesSchema,
       500: resDefault500,

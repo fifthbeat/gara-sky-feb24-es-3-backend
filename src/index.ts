@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 import FastifyEnv from "@fastify/env";
-import cors from '@fastify/cors'
+import cors from "@fastify/cors";
 import seriesRoutes from "@/modules/series/series.routes";
 import { Envs, optionsConfig } from "@/configs/evn.schema";
 import SwaggerUI from "@fastify/swagger-ui";
@@ -22,7 +22,7 @@ fastifyApp.register(Swagger, {
 });
 
 fastifyApp.register(SwaggerUI, {
-  routePrefix: "/", // Swagger UI available at http://localhost:3000/docs
+  routePrefix: "/", // Swagger UI available route
   staticCSP: true,
   transformSpecification: (swaggerObject, req, reply) => {
     return swaggerObject;
@@ -34,7 +34,7 @@ SERVER
 */
 const start = async () => {
   try {
-    await fastifyApp.register(cors)
+    await fastifyApp.register(cors);
     await fastifyApp.register(FastifyEnv, optionsConfig);
 
     const envs = fastifyApp.getEnvs<Envs>();
