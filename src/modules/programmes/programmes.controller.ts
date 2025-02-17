@@ -13,13 +13,25 @@ export async function getProgrammesController(
   req: FastifyRequest,
   reply: FastifyReply
 ) {
-  const data = await getProgrammesServices();
+  const { page = 1, limit = 10 } = req.query as {
+    page: number;
+    limit: number;
+  };
+  const { data, totalCount } = await getProgrammesServices(
+    Number(page),
+    Number(limit)
+  );
 
-  if (data.length > 0) {
-    const normalize = data.map((item) => normaliseProgrammes(item));
-    return { data: normalize };
-  }
-  return { data };
+  const normalize = data.map((item) => normaliseProgrammes(item));
+
+  return {
+    pagination: {
+      currentPage: Number(page),
+      totalPages: Math.ceil(totalCount / limit),
+      totalElements: totalCount,
+    },
+    data: normalize,
+  };
 }
 
 export async function getProgrammesDetailController(
@@ -38,12 +50,10 @@ export async function getProgrammesDetailController(
 }
 
 export async function createProgrammeController(
-  // TODO: fix type
   req: FastifyRequest<{ Body: Programme }>,
   reply: FastifyReply
 ) {
   const programmeData = req.body;
-  console.log("programmeData", programmeData);
   const newProgramme = await createProgrammeService(programmeData);
 
   return { data: normaliseProgrammes(newProgramme) };

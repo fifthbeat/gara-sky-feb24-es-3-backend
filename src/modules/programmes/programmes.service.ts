@@ -3,14 +3,24 @@ import { selectInfoProgrammes } from "@/schema/utilsQuery";
 
 import { Programme } from "prisma/types";
 
-export async function getProgrammesServices() {
-  const data = await db.entity.findMany({
-    where: {
-      fragmentType: "PROGRAMME",
-    },
-    select: selectInfoProgrammes,
-  });
-  return data;
+export async function getProgrammesServices(page: number, limit: number) {
+  const [data, totalCount] = await Promise.all([
+    db.entity.findMany({
+      where: {
+        fragmentType: "PROGRAMME",
+      },
+      select: selectInfoProgrammes,
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    db.entity.count({
+      where: {
+        fragmentType: "PROGRAMME",
+      },
+    }),
+  ]);
+
+  return { data, totalCount };
 }
 
 export async function getProgrammesDetailServies(id: string) {
